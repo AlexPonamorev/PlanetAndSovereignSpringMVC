@@ -5,7 +5,7 @@
     <title>Adding sovereign</title>
 </head>
 <body>
-<form th:method="POST" th:action="@{/sovereign}" th:object="${newSovereign}">
+<form th:method="POST" th:action="@{/sovereign/add}" th:object="${newSovereign}">
     <label for="nameForForm"> Enter name:</label>
     <input type="text" th:field="*{name}" id="nameForForm"/>
     <br/>

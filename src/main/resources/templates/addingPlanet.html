@@ -6,8 +6,9 @@
 </head>
 <body>
 <form th:method="POST" th:action="@{/planet/add}" th:object="${newPlanet}">
-    <label for="nameForForm"> Enter name:</label>
-    <input type="text" th:field="*{name}" id="nameForForm"/>
+    <label for="nameL"> Enter name:</label>
+    <input type="text" th:field="*{name}" id="nameL"/>
+   <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
     <input type="submit" value="Create planet!"/>
     <p th:if="${nameError}" th:utext="${nameError}"></p>
 </form>

@@ -5,8 +5,10 @@ import com.example.TaskSpringBoot1.services.PlanetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -27,7 +29,10 @@ public class PlanetController {
     }
 
     @PostMapping("/add")
-    public String create(@ModelAttribute("addingPlanet") Planet planetNew, Model model) {
+    public String create(@ModelAttribute("addingPlanet") @Valid Planet planetNew, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()){
+            model.addAttribute("newPlanet", new Planet());
+            return "addingPlanet";}
         if (!planetService.savePlanet(planetNew)) {
             model.addAttribute("nameError", "Такая планета уже есть");
             model.addAttribute("newPlanet", new Planet());

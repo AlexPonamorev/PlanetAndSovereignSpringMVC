@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Planet {
@@ -13,11 +16,10 @@ public class Planet {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Getter
-    @Setter
+    @NotEmpty(message = "The field can not be empty ")
+    @Size(min = 3, max = 30, message = "No short 3 and no longer than 30 characters  ")
     private String name;
-    @Getter
-    @Setter
+
     @ManyToOne
     private Sovereign sovereign;
 
@@ -29,6 +31,29 @@ public class Planet {
     public Planet() {
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Sovereign getSovereign() {
+        return sovereign;
+    }
+
+    public void setSovereign(Sovereign sovereign) {
+        this.sovereign = sovereign;
+    }
     @Override
     public int hashCode() {
         return super.hashCode();

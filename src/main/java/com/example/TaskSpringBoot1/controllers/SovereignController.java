@@ -7,8 +7,10 @@ import com.example.TaskSpringBoot1.services.SovereignService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -30,24 +32,27 @@ public class SovereignController {
         return "addingSovereign";
     }
 
-    @PostMapping()
-    public String create(@ModelAttribute("addingSovereign") Sovereign sovereign) {
+    @PostMapping("/add")
+    public String create(@ModelAttribute("addingSovereign")  @Valid Sovereign sovereign, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()){
+            model.addAttribute("newSovereign", new Sovereign());
+            return "addingSovereign";
+        }
         sovereignService.saveSovereign(sovereign);
         return "redirect:/start/show";
     }
 
-    // отдаст форму для заполнения руководства со списком планет
+    // Gives a form for the appointment of sovereign with a list of free planets
     @GetMapping("/appoint/{id}")
     public String appoint(@PathVariable(value = "id") long id, Model model) {
         Sovereign sovereign = sovereignService.getSovereignById(id);
         model.addAttribute("appointed", sovereign);
-        // запросить список планет которыми руководит повелитель с переданным ID на данный момент
+        // Request a list of planets which managed sovereign with the transferred ID at the moment
         List<Planet> planetList = planetService.getListSovereignById(id);
         model.addAttribute("planetList", planetList);
-        // запросить свободные планеты и отправить в модель
+        // Request free planets and send to the model
         List<Planet> planetListIsNotSovereign = planetService.getPlanetBySovereignIsNull();
         model.addAttribute("planetNull", planetListIsNotSovereign);
-
         return "appointmentOfLeaderShip";
     }
 
@@ -57,7 +62,6 @@ public class SovereignController {
         model.addAttribute("nameList", top10NameList);
         return "top10List";
     }
-
 
     @GetMapping("/delete")
     public String delete(Model model) {
@@ -69,7 +73,6 @@ public class SovereignController {
     @PostMapping("/delete")
     public String delete(@RequestParam(value = "id") long id) {
         sovereignService.delete(id);
-        System.out.println(" id = " + id);
         return "redirect:/start/show";
     }
 }
