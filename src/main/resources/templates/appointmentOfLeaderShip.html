@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Destination page</title>
+</head>
+<body>
+
+<p  th:if="${planetList.empty}"> Lord has no planets   </p>
+<div th:each="planet : ${planetList}">
+
+    <p  th:if="not ${planetList.empty}"> The Lord lands:  </p>
+    <span th:utext="${planet.getName()}"></span>
+
+    <p th:text="${planet.getName()}" >Value</p>
+</div>
+
+<p>  Добавить руководителю планету из списка доступных </p>
+<form method="POST" th:action="@{ /planet/addSovereign }"  th:object="${appointed}">
+    <select name="idP"  >
+        <option value=""> Выберете планету </option>
+        <option th:each="planet :${planetNull}"
+                th:value= "${planet.getId()}"
+                th:utext="${planet.getName}">
+    </select>
+
+    <input type = "text"  th:field="*{id}" > <br> <br>
+
+
+    <button type="submit"> Подтвердить </button>
+</form>
+
+<p th:text="${appointed.getName()}"> appointed  </p>
+</body>
+
+</html>

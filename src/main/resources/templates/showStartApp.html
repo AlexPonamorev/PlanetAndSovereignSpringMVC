@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Start page</title>
+</head>
+<body>
+
+<div th:each="sovereign : ${sovereignList}">
+    <a      th:href="@{/sovereign/appoint/{id}(id=${sovereign.getId()})}"
+            th:text="${sovereign.getName() + ', '+ sovereign.getPlanetSet().toString()}"> Name
+
+    </a>
+</div>
+<br/>
+<a  href="sovereign/add">  Add Sovereign </a>
+<a  href="/sovereign/delete"> Удалить повелителя   </a>
+<br/>
+<hr/>
+<br/>
+
+<div th:each="planet : ${planetList}">
+    <a  th:text="${planet.getName()}"> Name
+
+    </a>
+</div>
+<br/>
+<a  href="planet/add">  Add Planet </a>
+<a  href="/planet/delete"> Удалить планету   </a>
+<br/>
+<hr/>
+<br/>
+<a  href="/sovereign/rankingUp">  Отобразить первую десятку молодых </a>
+
+</body>
+</html>

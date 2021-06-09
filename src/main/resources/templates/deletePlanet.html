@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Удаление планет</title>
+</head>
+<body>
+
+<form method="DELETE" th:action="@{ /planet/delete }"  th:object="${planetList}">
+    <select name="id"  >
+        <option value=""> Выберете планету </option>
+        <option th:each="planet :${planetList}"
+                th:value= "${planet.getId()}"
+                th:utext="${planet.getName}">
+    </select>
+
+    <button type="submit"> Удалить  </button>
+</form>
+
+</body>
+</html>

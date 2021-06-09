@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title> Top 10 </title>
+</head>
+<body>
+<p>  Топ 10 Повелителей </p>
+<div th:each="name : ${nameList}">
+    <p th:text="${name}" >Value</p>
+</div>
+
+</body>
+</html>
