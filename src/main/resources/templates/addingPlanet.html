@@ -5,14 +5,11 @@
     <title>Adding planet</title>
 </head>
 <body>
-
 <form th:method="POST" th:action="@{/planet/add}" th:object="${newPlanet}">
     <label for="nameForForm"> Enter name:</label>
     <input type="text" th:field="*{name}" id="nameForForm"/>
-
     <input type="submit" value="Create planet!"/>
-
-    <p  th:if="${nameError}" th:utext="${nameError}"></p>
+    <p th:if="${nameError}" th:utext="${nameError}"></p>
 </form>
 
 </body>

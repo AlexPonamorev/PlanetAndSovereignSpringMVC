@@ -41,9 +41,19 @@ public class PlanetService {
         }
     }
 
-    public void delete(long id){
+    public List<Planet> getListPlanet() {
+        return planetRepository.getListPlanet();
+    }
+
+    public void delete(long id) {
         planetRepository.deleteById(id);
     }
 
+    public List<Planet> getListSovereignById(long id) {
+        return planetRepository.getListBySovereign(id);
+    }
 
+    public List<Planet> getPlanetBySovereignIsNull() {
+        return planetRepository.getPlanetBySovereignIsNull();
+    }
 }

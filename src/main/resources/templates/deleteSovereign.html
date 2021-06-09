@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title> Removal sovereign </title>
+</head>
+<body>
+<form method="POST" th:action="@{ /sovereign/delete }" th:object="${sovereignList}">
+    <select name="id">
+        <option value=""> Choose sovereign</option>
+        <option th:each="sovereign :${sovereignList}"
+                th:value="${sovereign.getId()}"
+                th:utext="${sovereign.getName}">
+    </select>
+    <button type="submit"> Delete</button>
+</form>
+</body>
+</html>

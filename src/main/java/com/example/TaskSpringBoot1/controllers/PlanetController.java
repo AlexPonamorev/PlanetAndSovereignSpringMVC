@@ -1,11 +1,7 @@
 package com.example.TaskSpringBoot1.controllers;
 
 import com.example.TaskSpringBoot1.entity.Planet;
-import com.example.TaskSpringBoot1.entity.Sovereign;
-import com.example.TaskSpringBoot1.repository.PlanetRepository;
-import com.example.TaskSpringBoot1.repository.SovereignRepository;
 import com.example.TaskSpringBoot1.services.PlanetService;
-import org.apache.catalina.LifecycleState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,12 +13,11 @@ import java.util.List;
 @RequestMapping("/planet")
 public class PlanetController {
     private PlanetService planetService;
-    private PlanetRepository planetRepository;
 
     @Autowired
-    public PlanetController(PlanetService planetService, PlanetRepository planetRepository) {
+    public PlanetController(PlanetService planetService) {
         this.planetService = planetService;
-        this.planetRepository = planetRepository;
+
     }
 
     @GetMapping("/add")
@@ -36,28 +31,27 @@ public class PlanetController {
         if (!planetService.savePlanet(planetNew)) {
             model.addAttribute("nameError", "Такая планета уже есть");
             model.addAttribute("newPlanet", new Planet());
-            System.out.println("Такая планета уже есть");
             return "addingPlanet";
         }
-        return "redirect:/start";
+        return "redirect:/start/show";
     }
 
     @PostMapping("/addSovereign")
     public String addSovereign(@RequestParam(value = "idP") long idP, @RequestParam(value = "id") long idS) {
         planetService.addSovereign(idP, idS);
-        return "redirect:/start";
+        return "redirect:/start/show";
     }
 
-@GetMapping("/delete")
-public String delete(Model model){
-    List<Planet> planetList = planetRepository.getListPlanet();
-    model.addAttribute("planetList", planetList);
+    @GetMapping("/delete")
+    public String delete(Model model) {
+        List<Planet> planetList = planetService.getListPlanet();
+        model.addAttribute("planetList", planetList);
         return "deletePlanet";
-}
+    }
 
-    @DeleteMapping("/delete")
-    public String delete(@RequestParam(value = "id")long id){
+    @PostMapping("/delete")
+    public String delete(@RequestParam(value = "id") long id) {
         planetService.delete(id);
-        return "redirect:/start";
+        return "redirect:/start/show";
     }
 }

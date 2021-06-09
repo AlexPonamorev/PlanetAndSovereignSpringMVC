@@ -2,20 +2,17 @@
 <html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Удаление планет</title>
+    <title> Removal of Planet </title>
 </head>
 <body>
-
-<form method="DELETE" th:action="@{ /planet/delete }"  th:object="${planetList}">
-    <select name="id"  >
-        <option value=""> Выберете планету </option>
+<form method="POST" th:action="@{ /planet/delete }" th:object="${planetList}">
+    <select name="id">
+        <option value=""> Choose a planet</option>
         <option th:each="planet :${planetList}"
-                th:value= "${planet.getId()}"
+                th:value="${planet.getId()}"
                 th:utext="${planet.getName}">
     </select>
-
-    <button type="submit"> Удалить  </button>
+    <button type="submit"> Delete</button>
 </form>
-
 </body>
 </html>

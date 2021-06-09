@@ -5,32 +5,29 @@
     <title>Start page</title>
 </head>
 <body>
-
 <div th:each="sovereign : ${sovereignList}">
-    <a      th:href="@{/sovereign/appoint/{id}(id=${sovereign.getId()})}"
-            th:text="${sovereign.getName() + ', '+ sovereign.getPlanetSet().toString()}"> Name
-
+    <a th:href="@{/sovereign/appoint/{id}(id=${sovereign.getId()})}"
+       th:text="${sovereign.getName() + ', '+ sovereign.getPlanetSet().toString()}"> Name
     </a>
 </div>
 <br/>
-<a  href="sovereign/add">  Add Sovereign </a>
-<a  href="/sovereign/delete"> Удалить повелителя   </a>
+<a href="sovereign/add"> Add Sovereign </a>
+<br/>
+<a href="/sovereign/delete"> Remove sovereign </a>
 <br/>
 <hr/>
 <br/>
-
 <div th:each="planet : ${planetList}">
-    <a  th:text="${planet.getName()}"> Name
-
+    <a th:text="${planet.getName()}"> Name
     </a>
 </div>
 <br/>
-<a  href="planet/add">  Add Planet </a>
-<a  href="/planet/delete"> Удалить планету   </a>
+<a href="planet/add"> Add Planet </a>
+<br/>
+<a href="/planet/delete"> Remove the planet </a>
 <br/>
 <hr/>
 <br/>
-<a  href="/sovereign/rankingUp">  Отобразить первую десятку молодых </a>
-
+<a href="/sovereign/rankingUp"> Display the first ten young sovereigns </a>
 </body>
 </html>

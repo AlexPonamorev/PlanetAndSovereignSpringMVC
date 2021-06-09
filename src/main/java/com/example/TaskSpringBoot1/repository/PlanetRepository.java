@@ -7,7 +7,6 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-
 public interface PlanetRepository extends CrudRepository<Planet, Long> {
     @Query(nativeQuery = true, value = "SELECT * FROM Planet")
     public List<Planet> getListPlanet();
