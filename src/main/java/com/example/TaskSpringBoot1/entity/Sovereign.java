@@ -2,6 +2,8 @@ package com.example.TaskSpringBoot1.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.Accessors;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -10,10 +12,12 @@ import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
+
 @Entity
 public class Sovereign {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GenericGenerator(name = "generator", strategy = "increment")
+    @GeneratedValue(generator = "generator")
     private Long id;
 
     @NotEmpty(message = "Name should not be empty")
@@ -22,8 +26,8 @@ public class Sovereign {
 
     @Min(value = 0, message = "Age should be greater than 0")
     private int age;
-
-    @OneToMany(mappedBy = "sovereign", orphanRemoval = true)
+    //  fetch = FetchType.LAZY не подгружать в память владельцев объекта, лишь только с установкой нового соединения
+    @OneToMany(mappedBy = "sovereign", fetch = FetchType.LAZY)
     private Set<Planet> planetSet = new HashSet<>();
 
     public Set<Planet> getPlanetSet() {

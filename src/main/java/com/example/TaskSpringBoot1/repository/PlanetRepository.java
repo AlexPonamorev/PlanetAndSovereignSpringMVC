@@ -4,22 +4,28 @@ import com.example.TaskSpringBoot1.entity.Planet;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface PlanetRepository extends CrudRepository<Planet, Long> {
-    @Query(nativeQuery = true, value = "SELECT * FROM Planet")
+    @Query(value = "select c from Planet c")
     public List<Planet> getListPlanet();
 
     @Query(value = "SELECT c FROM Planet c WHERE c.name = :name")
     public Planet getPlanetByName(@Param("name") String name);
 
-    @Query(nativeQuery = true, value = "SELECT s FROM Planet s WHERE s.sovereign_id = id")
+    @Query(value = "SELECT p FROM Planet p WHERE p.sovereign.id = :id")
     public List<Planet> getListBySovereign(@Param("id") long id);
 
-    @Query(value = "SELECT c FROM Planet c WHERE c.sovereign is null")
+    @Query(value = "SELECT p FROM Planet p WHERE p.sovereign is null")
     public List<Planet> getPlanetBySovereignIsNull();
 
-    @Query(value = "SELECT c FROM Planet c WHERE c.sovereign is not null")
+    @Query(value = "SELECT p FROM Planet p WHERE p.sovereign is not null")
     public List<Planet> getPlanetBySovereignIsNotNull();
+
+    /***************************************************************/
+    @Query( value = "select p from Planet p join Sovereign s on s.id = s.id")
+    public List<String> getPlaneJoinSovereign();
 }

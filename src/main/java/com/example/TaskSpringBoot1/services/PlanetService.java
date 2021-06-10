@@ -13,8 +13,8 @@ import java.util.Optional;
 
 @Service
 public class PlanetService {
-    private PlanetRepository planetRepository;
-    private SovereignRepository sovereignRepository;
+    private final PlanetRepository planetRepository;
+    private final SovereignRepository sovereignRepository;
 
     @Autowired
     public PlanetService(PlanetRepository planetRepository, SovereignRepository sovereignRepository) {
@@ -59,5 +59,10 @@ public class PlanetService {
 
     public List<Planet> getPlanetBySovereignIsNull() {
         return planetRepository.getPlanetBySovereignIsNull();
+    }
+
+    public List<String> getPlaneJoinSovereign(){
+        List<String> stringList = planetRepository.getPlaneJoinSovereign();
+        return stringList;
     }
 }

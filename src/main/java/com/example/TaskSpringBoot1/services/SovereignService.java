@@ -14,8 +14,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class SovereignService {
-    SovereignRepository sovereignRepository;
-    PlanetRepository planetRepository;
+    private final SovereignRepository sovereignRepository;
+    private  final PlanetRepository planetRepository;
 
     @Autowired
     public SovereignService(SovereignRepository sovereignRepository, PlanetRepository planetRepository) {

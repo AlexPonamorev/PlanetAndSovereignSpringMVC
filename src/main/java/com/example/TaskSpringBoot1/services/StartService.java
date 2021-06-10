@@ -11,9 +11,9 @@ import java.util.Set;
 
 @Service
 public class StartService {
-    PlanetRepository planetRepository;
-    SovereignRepository sovereignRepository;
-    FactoryObjects factoryObjects;
+    private final PlanetRepository planetRepository;
+    private  final SovereignRepository sovereignRepository;
+    private FactoryObjects factoryObjects;
 
     @Autowired
     public StartService(PlanetRepository planetRepository, FactoryObjects factoryObjects, SovereignRepository sovereignRepository) {

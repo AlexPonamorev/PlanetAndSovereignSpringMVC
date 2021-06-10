@@ -21,8 +21,8 @@ import java.util.List;
 @RequestMapping("/sovereign")
 public class SovereignController {
 
-    private SovereignService sovereignService;
-    private PlanetService planetService;
+    private final SovereignService sovereignService;
+    private final PlanetService planetService;
 
     @Autowired
     public SovereignController(SovereignService sovereignService, PlanetService planetService) {

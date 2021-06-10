@@ -1,20 +1,26 @@
 package com.example.TaskSpringBoot1.entity;
 
+import lombok.experimental.Accessors;
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+
 @Entity
 public class Planet {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GenericGenerator(name = "generator", strategy = "increment")
+    @GeneratedValue(generator = "generator")
     private Long id;
 
     @NotEmpty(message = "The field can not be empty ")
     @Size(min = 3, max = 30, message = "No short 3 and no longer than 30 characters  ")
     private String name;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn
     private Sovereign sovereign;
 
     public Planet(String name) {
