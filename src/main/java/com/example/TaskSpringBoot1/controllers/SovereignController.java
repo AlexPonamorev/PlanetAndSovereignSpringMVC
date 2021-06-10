@@ -2,13 +2,17 @@ package com.example.TaskSpringBoot1.controllers;
 
 import com.example.TaskSpringBoot1.entity.Planet;
 import com.example.TaskSpringBoot1.entity.Sovereign;
+import com.example.TaskSpringBoot1.exception.PlanetException;
+import com.example.TaskSpringBoot1.exception.SovereignException;
 import com.example.TaskSpringBoot1.services.PlanetService;
 import com.example.TaskSpringBoot1.services.SovereignService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -44,7 +48,7 @@ public class SovereignController {
 
     // Gives a form for the appointment of sovereign with a list of free planets
     @GetMapping("/appoint/{id}")
-    public String appoint(@PathVariable(value = "id") long id, Model model) {
+    public String appoint(@PathVariable(name = "id") long id, Model model) {
         Sovereign sovereign = sovereignService.getSovereignById(id);
         model.addAttribute("appointed", sovereign);
         // Request a list of planets which managed sovereign with the transferred ID at the moment
@@ -64,15 +68,19 @@ public class SovereignController {
     }
 
     @GetMapping("/delete")
-    public String delete(Model model) {
+    public String deleteByID(Model model) {
         List<Sovereign> sovereignList = sovereignService.getListSovereign();
         model.addAttribute("sovereignList", sovereignList);
         return "deleteSovereign";
     }
 
     @PostMapping("/delete")
-    public String delete(@RequestParam(value = "id") long id) {
-        sovereignService.delete(id);
+    public String deleteById(@RequestParam(value = "id") long id) {
+        try {
+            sovereignService.deleteById(id);
+        }catch (SovereignException exception){
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, exception.getMessage(), exception);
+        }
         return "redirect:/start/show";
     }
 }

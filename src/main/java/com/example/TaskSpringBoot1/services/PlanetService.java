@@ -2,6 +2,7 @@ package com.example.TaskSpringBoot1.services;
 
 import com.example.TaskSpringBoot1.entity.Planet;
 import com.example.TaskSpringBoot1.entity.Sovereign;
+import com.example.TaskSpringBoot1.exception.PlanetException;
 import com.example.TaskSpringBoot1.repository.PlanetRepository;
 import com.example.TaskSpringBoot1.repository.SovereignRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,8 @@ public class PlanetService {
         if (planet.getSovereign() == null) {
             planet.setSovereign(sovereign);
             planetRepository.save(planet);
+        } else {
+            throw new PlanetException(" This planet already has a sovereign ");
         }
     }
 
@@ -45,7 +48,8 @@ public class PlanetService {
         return planetRepository.getListPlanet();
     }
 
-    public void delete(long id) {
+    public void deleteById(long id) {
+        if (!planetRepository.existsById(id)) throw new PlanetException(" Recording does not exist ");
         planetRepository.deleteById(id);
     }
 

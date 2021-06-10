@@ -19,4 +19,7 @@ public interface PlanetRepository extends CrudRepository<Planet, Long> {
 
     @Query(value = "SELECT c FROM Planet c WHERE c.sovereign is null")
     public List<Planet> getPlanetBySovereignIsNull();
+
+    @Query(value = "SELECT c FROM Planet c WHERE c.sovereign is not null")
+    public List<Planet> getPlanetBySovereignIsNotNull();
 }

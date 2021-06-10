@@ -1,12 +1,16 @@
 package com.example.TaskSpringBoot1.controllers;
 
 import com.example.TaskSpringBoot1.entity.Planet;
+import com.example.TaskSpringBoot1.exception.PlanetException;
+import com.example.TaskSpringBoot1.exception.SovereignException;
 import com.example.TaskSpringBoot1.services.PlanetService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -42,21 +46,29 @@ public class PlanetController {
     }
 
     @PostMapping("/addSovereign")
-    public String addSovereign(@RequestParam(value = "idP") long idP, @RequestParam(value = "id") long idS) {
-        planetService.addSovereign(idP, idS);
+    public String addSovereignPlanet(@RequestParam(value = "idP") long idP, @RequestParam(value = "id") long idS) {
+        try {
+            planetService.addSovereign(idP, idS);
+        }catch (PlanetException exception){
+            throw new ResponseStatusException(HttpStatus.CONFLICT, exception.getMessage(), exception);
+        }
         return "redirect:/start/show";
     }
 
     @GetMapping("/delete")
-    public String delete(Model model) {
+    public String deleteById(Model model) {
         List<Planet> planetList = planetService.getListPlanet();
         model.addAttribute("planetList", planetList);
         return "deletePlanet";
     }
 
     @PostMapping("/delete")
-    public String delete(@RequestParam(value = "id") long id) {
-        planetService.delete(id);
+    public String deleteById(@RequestParam(value = "id") long id) {
+        try {
+            planetService.deleteById(id);
+        }catch (SovereignException exception){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, exception.getMessage(), exception);
+        }
         return "redirect:/start/show";
     }
 }

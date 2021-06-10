@@ -12,20 +12,18 @@ import java.util.Set;
 
 @Entity
 public class Sovereign {
-    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Getter
-    @Setter
+
     @NotEmpty(message = "Name should not be empty")
     @Size(min = 2, max = 30, message = "Name should be between 2 and 30 characters")
     private String name;
-    @Getter
-    @Setter
+
     @Min(value = 0, message = "Age should be greater than 0")
     private int age;
-    @OneToMany(mappedBy = "sovereign")
+
+    @OneToMany(mappedBy = "sovereign", orphanRemoval = true)
     private Set<Planet> planetSet = new HashSet<>();
 
     public Set<Planet> getPlanetSet() {
@@ -42,6 +40,30 @@ public class Sovereign {
     }
 
     public Sovereign() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
     @Override

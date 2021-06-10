@@ -1,18 +1,12 @@
 package com.example.TaskSpringBoot1.entity;
 
-
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 @Entity
 public class Planet {
     @Id
-    @Getter
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
@@ -20,7 +14,7 @@ public class Planet {
     @Size(min = 3, max = 30, message = "No short 3 and no longer than 30 characters  ")
     private String name;
 
-    @ManyToOne
+    @ManyToOne()
     private Sovereign sovereign;
 
     public Planet(String name) {
