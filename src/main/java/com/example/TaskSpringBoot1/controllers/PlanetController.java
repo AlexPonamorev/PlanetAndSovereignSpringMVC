@@ -46,7 +46,7 @@ public class PlanetController {
     }
 
     @PostMapping("/addSovereign")
-    public String addSovereignPlanet(@RequestParam(value = "idP") long idP, @RequestParam(value = "id") long idS) {
+    public String addSovereignPlanet(@RequestParam(value = "idP") long idP, @RequestParam(value = "sovereign_id") long idS) {
         try {
             planetService.addSovereign(idP, idS);
         }catch (PlanetException exception){

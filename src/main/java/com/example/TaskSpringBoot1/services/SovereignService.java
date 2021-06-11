@@ -50,4 +50,9 @@ public class SovereignService {
     public void saveSovereign(Sovereign sovereign) {
         sovereignRepository.save(sovereign);
     }
+
+    public List<String> getSovereignIdlers(){
+        List<String> idlers = sovereignRepository.getPlaneJoinSovereignByPlanetNull();
+        return idlers;
+    }
 }

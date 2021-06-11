@@ -7,16 +7,17 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface PlanetRepository extends CrudRepository<Planet, Long> {
-    @Query(value = "select c from Planet c")
+    @Query(nativeQuery = true, value = "SELECT * FROM Planet")
     public List<Planet> getListPlanet();
 
     @Query(value = "SELECT c FROM Planet c WHERE c.name = :name")
     public Planet getPlanetByName(@Param("name") String name);
 
-    @Query(value = "SELECT p FROM Planet p WHERE p.sovereign.id = :id")
+    @Query(value = "SELECT p FROM Planet p WHERE p.sovereign.sovereign_id = :id")
     public List<Planet> getListBySovereign(@Param("id") long id);
 
     @Query(value = "SELECT p FROM Planet p WHERE p.sovereign is null")
@@ -26,6 +27,10 @@ public interface PlanetRepository extends CrudRepository<Planet, Long> {
     public List<Planet> getPlanetBySovereignIsNotNull();
 
     /***************************************************************/
-    @Query( value = "select p from Planet p join Sovereign s on s.id = s.id")
-    public List<String> getPlaneJoinSovereign();
+    // не работает
+//    @Query(nativeQuery = true, value = "SELECT * FROM   Planet  JOIN   Sovereign ON Sovereign.sovereign_id = Planet.sovereign ")
+//    public List<String> getPlaneJoinPlanet();
+    @Query(nativeQuery = false, value = "SELECT p.name,s.name FROM Planet  p  JOIN Sovereign  s ON s.sovereign_id = p.sovereign ")
+    public List<String> getPlaneJoinPlanet();
+
 }

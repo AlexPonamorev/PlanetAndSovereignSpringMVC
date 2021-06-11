@@ -61,8 +61,8 @@ public class PlanetService {
         return planetRepository.getPlanetBySovereignIsNull();
     }
 
-    public List<String> getPlaneJoinSovereign(){
-        List<String> stringList = planetRepository.getPlaneJoinSovereign();
+    public List<String> getPlaneJoinPlanet(){
+        List<String> stringList = planetRepository.getPlaneJoinPlanet();
         return stringList;
     }
 }

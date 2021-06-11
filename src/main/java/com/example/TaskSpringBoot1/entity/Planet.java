@@ -13,14 +13,13 @@ public class Planet {
     @Id
     @GenericGenerator(name = "generator", strategy = "increment")
     @GeneratedValue(generator = "generator")
-    private Long id;
+    private Long planet_id;
 
     @NotEmpty(message = "The field can not be empty ")
     @Size(min = 3, max = 30, message = "No short 3 and no longer than 30 characters  ")
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn
     private Sovereign sovereign;
 
     public Planet(String name) {
@@ -31,12 +30,12 @@ public class Planet {
     public Planet() {
     }
 
-    public Long getId() {
-        return id;
+    public Long getPlanet_id() {
+        return planet_id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setPlanet_id(Long planet_id) {
+        this.planet_id = planet_id;
     }
 
     public String getName() {
