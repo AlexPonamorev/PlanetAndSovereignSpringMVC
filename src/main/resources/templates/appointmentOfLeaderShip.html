@@ -17,10 +17,10 @@
     <select name="idP">
         <option value=""> Choose planet</option>
         <option th:each="planet :${planetNull}"
-                th:value="${planet.getId()}"
+                th:value="${planet.getPlanet_id()}"
                 th:utext="${planet.getName}">
     </select>
-    <input type="text" th:field="*{id}"> <br> <br>
+    <input type="text" th:field="*{sovereign_id}"> <br> <br>
     <button type="submit"> Confirm</button>
 </form>
 

@@ -9,8 +9,8 @@
     <select name="id">
         <option value=""> Choose a planet</option>
         <option th:each="planet :${planetList}"
-                th:value="${planet.getId()}"
-                th:utext="${planet.getName}">
+                th:value="${planet.getPlanet_id()}"
+                th:utext="${planet.getName()}">
     </select>
     <button type="submit"> Delete</button>
 </form>

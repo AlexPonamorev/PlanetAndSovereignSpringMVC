@@ -9,8 +9,8 @@
     <select name="id">
         <option value=""> Choose sovereign</option>
         <option th:each="sovereign :${sovereignList}"
-                th:value="${sovereign.getId()}"
-                th:utext="${sovereign.getName}">
+                th:value="${sovereign.getSovereign_id()}"
+                th:utext="${sovereign.getName()}">
     </select>
     <button type="submit"> Delete</button>
 </form>

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title> Top 10 </title>
+</head>
+<body>
+<p> Sovereign Idlers </p>
+<div th:each="s : ${sovereign}">
+    <p th:text="${s}">Value</p>
+</div>
+</body>
+</html>

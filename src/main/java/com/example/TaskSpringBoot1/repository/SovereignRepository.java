@@ -14,4 +14,7 @@ public interface SovereignRepository extends CrudRepository<Sovereign, Long> {
 
     @Query(nativeQuery = true, value = "SELECT * FROM Sovereign")
     public List<Sovereign> getListSovereign();
+
+    @Query(nativeQuery = false, value = "SELECT s.name, p.name FROM Sovereign s LEFT  JOIN Planet p ON s.sovereign_id = p.sovereign where p.sovereign is  null ")
+    public List<String> getPlaneJoinSovereignByPlanetNull();
 }

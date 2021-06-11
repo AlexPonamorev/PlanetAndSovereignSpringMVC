@@ -6,7 +6,7 @@
 </head>
 <body>
 <div th:each="sovereign : ${sovereignList}">
-    <a th:href="@{/sovereign/appoint/{id}(id=${sovereign.getId()})}"
+    <a th:href="@{/sovereign/appoint/{id}(id=${sovereign.getSovereign_id()})}"
        th:text="${sovereign.getName() + ', '+ sovereign.getPlanetSet().toString()}"> Name
     </a>
 </div>
@@ -29,5 +29,7 @@
 <hr/>
 <br/>
 <a href="/sovereign/rankingUp"> Display the first ten young sovereigns </a>
+<br/>
+<a href="/sovereign/idlers"> Display the idlers </a>
 </body>
 </html>

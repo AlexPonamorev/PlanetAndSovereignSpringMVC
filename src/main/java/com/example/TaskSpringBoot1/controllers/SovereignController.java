@@ -83,4 +83,11 @@ public class SovereignController {
         }
         return "redirect:/start/show";
     }
+
+    @GetMapping("/idlers")
+    public String getSovereignIdlers(Model model){
+        List<String> idlers = sovereignService.getSovereignIdlers();
+        model.addAttribute("sovereign", idlers);
+        return "sovereignIdlers";
+    }
 }

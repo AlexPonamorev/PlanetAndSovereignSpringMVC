@@ -18,7 +18,7 @@ public class Sovereign {
     @Id
     @GenericGenerator(name = "generator", strategy = "increment")
     @GeneratedValue(generator = "generator")
-    private Long id;
+    private Long sovereign_id;
 
     @NotEmpty(message = "Name should not be empty")
     @Size(min = 2, max = 30, message = "Name should be between 2 and 30 characters")
@@ -46,12 +46,12 @@ public class Sovereign {
     public Sovereign() {
     }
 
-    public Long getId() {
-        return id;
+    public Long getSovereign_id() {
+        return sovereign_id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setSovereign_id(Long sovereign_id) {
+        this.sovereign_id = sovereign_id;
     }
 
     public String getName() {
